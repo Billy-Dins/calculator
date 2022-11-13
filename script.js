@@ -2,6 +2,7 @@ let display = document.querySelector('#screen');
 let arithmeticSelection = document.querySelectorAll('.arithmetic');
 let numberSelection = document.querySelectorAll('.number');
 let clearSelection = document.querySelector('#clearBtn');
+let deleteLast = document.querySelector('.delete')
 let equals = document.querySelector('#equalsBtn');
 
 var screen = 0
@@ -13,6 +14,11 @@ clearSelection.addEventListener('click', () => {
     num1 = 0
     arithmetic = ''
     display.innerHTML = ''
+})
+
+deleteLast.addEventListener('click', () => {
+    let displayArray = display.innerHTML.split('').slice(0, -1).join('');
+    display.innerHTML = displayArray
 })
 
 numberSelection.forEach(btn => {
