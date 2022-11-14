@@ -8,52 +8,87 @@ let equals = document.querySelector('#equalsBtn');
 var screen = 0
 var num1 = 0
 var num2 = 0
-var arithmetic = ''
+var num3 = 0
+var operator = ''
+
 
 clearSelection.addEventListener('click', () => {
-    num1 = 0
-    arithmetic = ''
-    display.innerHTML = ''
-})
+        num1 = 0;
+        num2 = 0;
+        num3 = 0;
+        operator = '';
+        display.textContent = 0;
+    });
 
-deleteLast.addEventListener('click', () => {
-    let displayArray = display.innerHTML.split('').slice(0, -1).join('');
-    display.innerHTML = displayArray
-})
+equals.addEventListener('click', () => {
+    if (num2 === 0) {
+        num2 = display.textContent
+    }
+    solve(num1, num2);
+});
+
 
 numberSelection.forEach(btn => {
     btn.addEventListener('click', () => {
-        if (display.innerHTML.includes('.') && btn.innerHTML === '.'){
-            return
-        } screen = display.innerHTML += btn.textContent;
-    });
-})
-
-arithmeticSelection.forEach(btn =>{
-    btn.addEventListener('click', () => {
-        arithmetic = btn.innerHTML
-        if (num1 == 0) {
-            num1 = Number(display.innerHTML)
-            console.log(num1)
-            display.innerHTML = ''
+        if (num1 !== 0 && operator !=='' && num2 === 0) {
+            console.log('1')
+            display.textContent = '';
+            num2 = btn.textContent;
+            display.textContent = num2
+        } else if (num1 === 0 && num2 !== 0){
+            console.log('2')
+            display.textContent = ''
+            num1 = btn.textContent
+            display.textContent = num1
+        } else if (num1 !== 0 && num2 !== 0) {
+            console.log('3')
+            display.textContent = ''
+            num1 = btn.textContent;
+            display.textContent = num1
+        } else if (num1 === 0) {
+            console.log('4')
+            num1 = btn.textContent;
+            display.textContent = num1;
+            console.log(`num1 is ${num1}`);
         } else {
-            return;
+            console.log('5')
+            num1 += btn.textContent;
+            display.textContent = num1;
+            console.log(`num1 is ${num1}`);
         }
     });
 });
 
-equals.addEventListener('click', () => {
-    let screen = Number(display.innerHTML);
-    console.log(num1)
-    if (arithmetic === 'x') {
-        display.innerHTML = (num1 * screen);
-    } else if (arithmetic === '+') {
-        display.innerHTML = (num1 + screen);
-    } else if (arithmetic === '-') {
-        display.innerHTML = (num1 - screen);
-    } else if (arithmetic === '/') {
-        display.innerHTML = (num1 / screen);
-    } else if (arithmetic === '%') {
-        display.innerHTML = (num1 % screen);
+
+arithmeticSelection.forEach(btn => {
+    btn.addEventListener('click', () => {
+        console.log(`operator is ${operator}`)
+        if (num2 === 0 && num1 !== 0) {
+            operator = btn.textContent;
+            num2 = num1
+            num1 = 0;
+        } else if (num2 !== 0 && num1 !== 0){
+            num2 = solve(num1,num2);
+            operator = btn.textContent;
+        }
+    })
+})
+
+
+function solve(num1, num2) {
+    num1 = Number(num1);
+    num2 = Number(num2);
+    if (operator == '+') {
+        display.textContent = (num1 + num2);
+        return (num1 + num2); 
+    } else if (operator == '-') {
+        display.textContent = (num2 - num1);
+        return (num2 - num1)
+    } else if (operator == 'x' || '*') {
+        display.textContent = (num1 * num2); 
+        return (num1 * num2)
+    } else if (operator == '/') {
+        display.textContent = (num1 / num2);
+        return (num1 / num2)
     }
-});
+}
