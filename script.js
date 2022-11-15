@@ -21,10 +21,16 @@ clearSelection.addEventListener('click', () => {
     });
 
 equals.addEventListener('click', () => {
-    if (num2 === 0) {
+    if (num2 !== 0) {
+        console.log(num1)
+        console.log(num2)
+        console.log(operator)
+    num2 = solve(num2,num1,operator)
+    num1 = 0
+    }else if (num2 === 0) {
         num2 = display.textContent
+        console.log('error at equals')
     }
-    solve(num1, num2);
 });
 
 
@@ -35,7 +41,7 @@ numberSelection.forEach(btn => {
             display.textContent = '';
             num2 = btn.textContent;
             display.textContent = num2
-        } else if (num1 === 0 && num2 !== 0){
+        } else if (num1 == 0 && num2 !== 0){
             console.log('2')
             display.textContent = ''
             num1 = btn.textContent
@@ -43,12 +49,11 @@ numberSelection.forEach(btn => {
         } else if (num1 !== 0 && num2 !== 0) {
             console.log('3')
             display.textContent = ''
-            num1 = btn.textContent;
+            num1 += btn.textContent;
             display.textContent = num1
-        } else if (num1 === 0) {
+        } else if (num1 === 0 && num2 === 0) {
             console.log('4')
-            num1 = btn.textContent;
-            display.textContent = num1;
+            display.textContent += btn.textContent
             console.log(`num1 is ${num1}`);
         } else {
             console.log('5')
@@ -69,26 +74,30 @@ arithmeticSelection.forEach(btn => {
             num1 = 0;
         } else if (num2 !== 0 && num1 !== 0){
             num2 = solve(num1,num2);
+            num1 = 0;
             operator = btn.textContent;
+        } else {
+        operator = btn.textContent
+        num2 = display.textContent
+        num1 = 0
         }
     })
 })
 
-
 function solve(num1, num2) {
     num1 = Number(num1);
     num2 = Number(num2);
-    if (operator == '+') {
+    if (operator === '/') {
+        display.textContent = (num1 / num2);
+        return (num2 / num1);
+    } else if (operator === '+') {
         display.textContent = (num1 + num2);
         return (num1 + num2); 
-    } else if (operator == '-') {
-        display.textContent = (num2 - num1);
-        return (num2 - num1)
-    } else if (operator == 'x' || '*') {
+    } else if (operator === '-') {
+        display.textContent = (num1 - num2);
+        return (num2 - num1);
+    } else if (operator === 'x' || '*') {
         display.textContent = (num1 * num2); 
-        return (num1 * num2)
-    } else if (operator == '/') {
-        display.textContent = (num1 / num2);
-        return (num1 / num2)
-    }
-}
+        return (num1 * num2);
+    };
+};
