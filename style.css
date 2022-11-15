@@ -8,7 +8,7 @@ body {
     border-radius: 3%;
     display:flex;
     flex-direction: column;
-    background-color: gray;
+    background-image: linear-gradient(to bottom, rgba(34,156,219,1) 0%, rgba(10,114,187,1) 100%);
     max-width: 350px;
     max-height: 500px;
     width: 40vw;
@@ -25,7 +25,7 @@ body {
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    background-color: white;
+    background-color: rgba(154, 185, 188, 0.8);
     width: 85%;
     height: 15%;
 }
@@ -36,14 +36,26 @@ body {
     flex-wrap: wrap;
 }
 button {
+    color:rgb(228, 168, 40);
+    font-size: large;
     margin: 5px;
     border-radius:50%;
     min-width: 70px;
     min-height: 70px;
 }
 #equalsBtn {
+    background-color: #d6643f;
     border-radius: 50%;
     width: 150px;
+}
+#clearBtn, #delete{
+    background-color: #d6643f;
+}
+.number {
+    background-color: #523d98;
+}
+.arithmetic {
+    background-color: #536ea5;
 }
 button:hover{
     background-color: rgb(245, 159, 159);
