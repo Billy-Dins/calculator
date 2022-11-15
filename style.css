@@ -58,6 +58,10 @@ button {
     background-color: #536ea5;
 }
 button:hover{
-    background-color: rgb(245, 159, 159);
+    background-color: rgba(10,114,187,1);
+    cursor: pointer;
+}
+#equalsBtn:hover, #clearBtn:hover, #delete:hover {
+    background-color: rgba(10,114,187,1);
     cursor: pointer;
 }
