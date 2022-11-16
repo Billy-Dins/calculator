@@ -154,19 +154,19 @@ function solve(num1, num2) {
         if (num1 == 0) {
             display.textContent = "you're an idiot"
         } else
-        display.textContent = Math.round((num2 / num1)*100)/100;
-        return Math.round((num2 / num1)*100)/100;
+        display.textContent = Math.round((num2 / num1)*10000)/10000;
+        return Math.round((num2 / num1)*10000)/10000;
     } else if (operator == '+') {
-        display.textContent = Math.round((num1 + num2)*100)/100;
-        return Math.round((num1 + num2)*100)/100; 
+        display.textContent = Math.round((num1 + num2)*10000)/10000;
+        return Math.round((num1 + num2)*10000)/10000; 
     } else if (operator == '-') {
-        display.textContent = Math.round((num2 - num1)*100)/100;
-        return Math.round((num2 - num1)*100)/100;
+        display.textContent = Math.round((num2 - num1)*10000)/10000;
+        return Math.round((num2 - num1)*10000)/10000;
     } else if (operator == '%') {
-        display.textContent = Math.round(num2/100)
-        return Math.round(num2/100)
+        display.textContent = num2/100
+        return num2/100
     } else if (operator == 'x' || '*') {
-        display.textContent = Math.round((num1 * num2) * 100) / 100; 
-        return Math.round((num1 * num2) * 100) / 100;
+        display.textContent = Math.round((num1 * num2)*10000)/10000; 
+        return Math.round((num1 * num2)*10000)/10000;
     };
 };
