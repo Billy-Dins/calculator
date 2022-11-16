@@ -43,6 +43,9 @@ button {
     min-width: 70px;
     min-height: 70px;
 }
+#delete {
+    font-size: small;
+}
 #equalsBtn {
     background-color: #d6643f;
     border-radius: 50%;

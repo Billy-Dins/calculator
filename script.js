@@ -12,8 +12,6 @@ var operator = ''
 
 /* 
 # To Do:
--Selected operator values needs to clear if another operator is selected.
--Hitting multiple operators in a row breaks it (on mobile atleast)
 -Add Keyboard functionality
 */
 
@@ -22,6 +20,9 @@ deleteLast.addEventListener('click', () => {
     display.innerHTML = displayArray
 });
 clearSelection.addEventListener('click', () => {
+    arithmeticSelection.forEach(btn => {
+        btn.removeAttribute('style')
+        });
     num1 = '';
     num2 = 0;
     operator = '';
@@ -30,7 +31,7 @@ clearSelection.addEventListener('click', () => {
 
 equals.addEventListener('click', () => {
     if (num2 !== 0) {
-    num2 = solve(num2,num1,operator)
+    num2 = solve(num1,num2)
     num1 = 0
     }else if (num2 === 0) {
         num2 = display.textContent
@@ -43,14 +44,14 @@ numberSelection.forEach(btn => {
             btns.removeAttribute('style', 'background-color')
         })
         if (display.textContent.length < 18) {
-            if (display.innerHTML.includes('.') && btn.innerHTML === '.'){
+            if (display.textContent.includes('.') && btn.textContent === '.'){
                 return
             }
             if (num1 !== 0 && operator !=='' && num2 === 0) {
                 display.textContent = '';
                 num2 = btn.textContent;
                 display.textContent = num2
-            } else if (num1 == 0 && num2 !== 0){
+            } else if (num1 === 0 && num2 !== 0){
                 display.textContent = ''
                 num1 = btn.textContent
                 display.textContent = num1
@@ -59,28 +60,39 @@ numberSelection.forEach(btn => {
                 num1 += btn.textContent;
                 display.textContent = num1
             } else if (num1 === 0 && num2 === 0) {
-                display.textContent += btn.textContent
+                display.textContent = ''
+                num1 = btn.textContent;
+                display.textContent = num1
+            } else if (num1 === 0 && num2 === 0 && operator== '-'){
             } else {
                 num1 += btn.textContent;
                 display.textContent = num1;
-            }
-    } else {
-        return
-    };
+            };
+        } else {
+            return
+        };
     });
 });
 
-
 arithmeticSelection.forEach(btn => {
     btn.addEventListener('click', () => {
+        arithmeticSelection.forEach(btns => {
+            if(btns.getAttribute('style') == 'background-color:rgba(10,114,187,1)') {
+                btns.removeAttribute('style')
+            };
+        });
         changeButton(btn)
-        if (num2 === 0 && num1 !== 0) {
+        if (btn.textContent == '%') {
+            operator = btn.textContent
+            num2 = display.textContent;
+            display.textContent = ''
+            btn.removeAttribute('style')
+            solve(num1, num2);
+        } else if (num2 === 0 && num1 !== 0) {
             operator = btn.textContent;
             num2 = num1
             num1 = 0;
         } else if (num2 !== 0 && num1 !== 0){
-            console.log(`arith num1 is ${num1}`)
-            console.log(`arith num2 is ${num2}`)
             num2 = solve(num1,num2);
             num1 = 0;
             operator = btn.textContent;
@@ -93,10 +105,10 @@ arithmeticSelection.forEach(btn => {
 });
 
 function changeButton(btn) {
-    if (btn.getAttribute('style') === 'background-color:grey'){
-        btn.setAttribute('style', 'background-color:white')
+    if (btn.getAttribute('style') === 'background-color:rgba(10,114,187,1)'){
+        btn.setAttribute('style', 'background-color: #536ea5')
     } else {
-        btn.setAttribute('style', 'background-color:grey')
+        btn.setAttribute('style', 'background-color:rgba(10,114,187,1)')
     };
 };
 
@@ -104,17 +116,20 @@ function solve(num1, num2) {
     num1 = Number(num1);
     num2 = Number(num2);
     if (operator == '/') {
-        display.textContent = (num1 / num2);
+        if (num1 == 0) {
+            display.textContent = "you're an idiot"
+        } else
+        display.textContent = (num2 / num1);
         return (num2 / num1)
     } else if (operator == '+') {
         display.textContent = (num1 + num2);
         return (num1 + num2) 
     } else if (operator == '-') {
-        display.textContent = (num1 - num2);
+        display.textContent = (num2 - num1);
         return (num2 - num1)
     } else if (operator == '%') {
-        display.textContent = (num1 % num2);
-        return (num1 % num2)
+        display.textContent = num2/100;
+        return num2/100;
     } else if (operator == 'x' || '*') {
         display.textContent = (num1 * num2); 
         return (num1 * num2)
