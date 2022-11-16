@@ -5,15 +5,13 @@ let clearSelection = document.querySelector('#clearBtn');
 let deleteLast = document.querySelector('#delete')
 let equals = document.querySelector('#equalsBtn');
 let button = document.querySelectorAll('button');
+
 var screen = 0
 var num1 = 0
 var num2 = 0
 var operator = ''
 
-/* 
-# To Do:
--Add Keyboard functionality
-*/
+//I am so sorry if you are reading this... This code is very messy.
 
 deleteLast.addEventListener('click', () => {
     let displayArray = display.innerHTML.split('').slice(0, -1).join('');
@@ -28,7 +26,6 @@ clearSelection.addEventListener('click', () => {
     operator = '';
     display.textContent = 0;
 });
-
 equals.addEventListener('click', () => {
     if (num2 !== 0) {
     num2 = solve(num1,num2)
@@ -38,11 +35,49 @@ equals.addEventListener('click', () => {
     }
 });
 
+window.addEventListener('keydown', (e) => {
+    keystroke = Number(e.key)
+    if (keystroke >= 0) {
+        if (display.textContent.length < 18) {
+            if (display.textContent.includes('.') && btn.textContent === '.'){
+                return
+            }
+            if (num1 !== 0 && operator !=='' && num2 === 0) {
+                display.textContent = '';
+                num2 += keystroke;
+                display.textContent = num2
+            } else if (num1 === 0 && num2 !== 0){
+                display.textContent = ''
+                num1 += keystroke
+                display.textContent = num1
+            } else if (num1 !== 0 && num2 !== 0) {
+                display.textContent = ''
+                num1 += keystroke;
+                display.textContent = num1
+            } else if (num1 === 0 && num2 === 0) {
+                num1 = ''
+                display.textContent = ''
+                num1 += keystroke;
+                display.textContent = num1
+            } else if (num1 === 0 && num2 === 0 && operator== '-'){
+            } else {
+                num1 += keystroke;
+                display.textContent = num1;
+            };
+        } else {
+            return;
+        };
+    } else {
+        console.log('error at keystroke')
+        return;
+    };
+});
+
 numberSelection.forEach(btn => {
     btn.addEventListener('click', () => {
         button.forEach(btns => {
             btns.removeAttribute('style', 'background-color')
-        })
+        });
         if (display.textContent.length < 18) {
             if (display.textContent.includes('.') && btn.textContent === '.'){
                 return
@@ -69,7 +104,7 @@ numberSelection.forEach(btn => {
                 display.textContent = num1;
             };
         } else {
-            return
+            return;
         };
     });
 });
@@ -119,19 +154,19 @@ function solve(num1, num2) {
         if (num1 == 0) {
             display.textContent = "you're an idiot"
         } else
-        display.textContent = (num2 / num1);
-        return (num2 / num1)
+        display.textContent = Math.round((num2 / num1)*100)/100;
+        return Math.round((num2 / num1)*100)/100;
     } else if (operator == '+') {
-        display.textContent = (num1 + num2);
-        return (num1 + num2) 
+        display.textContent = Math.round((num1 + num2)*100)/100;
+        return Math.round((num1 + num2)*100)/100; 
     } else if (operator == '-') {
-        display.textContent = (num2 - num1);
-        return (num2 - num1)
+        display.textContent = Math.round((num2 - num1)*100)/100;
+        return Math.round((num2 - num1)*100)/100;
     } else if (operator == '%') {
-        display.textContent = num2/100;
-        return num2/100;
+        display.textContent = Math.round(num2/100)
+        return Math.round(num2/100)
     } else if (operator == 'x' || '*') {
-        display.textContent = (num1 * num2); 
-        return (num1 * num2)
+        display.textContent = Math.round((num1 * num2) * 100) / 100; 
+        return Math.round((num1 * num2) * 100) / 100;
     };
 };
