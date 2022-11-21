@@ -2,19 +2,18 @@ body {
     background-color: black;
     display: flex;
     justify-content: center;
-    margin: 25%;
+    margin: 15%;
 }
 #calculator {
     border-radius: 3%;
     display:flex;
     flex-direction: column;
     background-color: gray;
-    max-width: 350px;
-    max-height: 500px;
-    width: 40vw;
-    height: 45vh;
-    min-width: 350px;
-    min-height: 535px;
+    min-height: 480px;
+    width: 25vw;
+    height: 42vh;
+    min-width: 300px;
+    max-width: 450px;
 }
 #screen {
     font-size: xx-large;
@@ -31,19 +30,19 @@ body {
 }
 #buttonContainer {
     justify-content: space-around;
-    margin: 5px;
+    margin: 1;
     display:flex;
     flex-wrap: wrap;
 }
 button {
     margin: 5px;
     border-radius:50%;
-    min-width: 70px;
-    min-height: 70px;
+    min-width: 20%;
+    min-height: 40%;
 }
 #equalsBtn {
     border-radius: 50%;
-    width: 150px;
+    width: 50%;
 }
 button:hover{
     background-color: rgb(245, 159, 159);
